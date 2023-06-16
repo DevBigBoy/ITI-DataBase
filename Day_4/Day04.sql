@@ -106,7 +106,76 @@ where St_Id in (Select St_Id
 ------------------------------------------------------
 -- union family
 -- union all    
--- union    
--- intersect   
--- except 1.19.29
+-- union       => Distinct and order asc 
+-- intersect   => Distinct and order asc
+-- except      => Distinct and order asc
 ----------------------------------------
+
+SELECT St_Fname
+from Student
+union all
+SELECT Ins_Name
+From Instructor
+
+----- Two Different Type => Error
+select St_Id
+from Student
+union all
+select Ins_Name
+from Instructor
+
+-- Union => Distinct and order asc thus Slower than union all
+SELECT St_Fname
+from Student
+union 
+SELECT Ins_Name
+From Instructor
+
+-- intersect => Distinct and order asc
+SELECT St_Fname
+from Student
+intersect 
+SELECT Ins_Name
+From Instructor
+
+SELECT St_Fname
+from Student
+except 
+SELECT Ins_Name
+From Instructor
+
+---------------------------------------
+Select St_Fname,St_Age,Dept_Id
+From Student
+Order by St_Address
+
+select St_Fname, St_Age, Dept_Id
+from Student
+order by 1 -- order of the columns in select 
+
+
+Select St_Fname, St_Age, Dept_Id
+From Student
+Order by Dept_Id asc, St_Age desc
+
+-- You can't delete or edit parent have child
+delete from Department where Dept_Id = 20
+
+update Department set Dept_Id=4000 where Dept_Id = 20
+--------------------------------------
+-- builtin functions
+-- Agg Functions
+-- getdate()   isnull   coalesce  
+-- concat Convert
+--------------------------------------
+
+SELECT year(getdate())
+
+SELECT month(getdate())
+						-- Start, Lenght
+SELECT substring(St_Fname, 1,      3)
+from Student
+
+SELECT db_name()
+
+SELECT suser_name()
